@@ -33,6 +33,7 @@ export function SearchBar({
       />
       {value.length > 0 && (
         <button
+          tabIndex={-1} // to remove it from the order of movement when using (tab) button
           type="button"
           className="bm-clear-btn"
           aria-label="Clear search"
