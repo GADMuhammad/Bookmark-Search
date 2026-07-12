@@ -50,7 +50,8 @@ body {
 
 // themes and colors:
 :root {
-  --bm-container-bg: rgba(255, 255, 255, 0.75);
+  // --bm-container-bg: rgba(255, 255, 255, 0.75);
+  --bm-container-bg: rgba(219, 220, 222, 0.6);
   --bm-blur: blur(20px) saturate(120%);
   --bm-border: rgba(255, 255, 255, 0.5);
   --bm-shadow: 0 24px 70px rgba(79, 70, 229, 0.16);
