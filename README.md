@@ -19,7 +19,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
 
 ```bash
 pnpm install
-pnpm dev
+pnpm build
 ```
 
 Then load the unpacked extension in Chrome:
