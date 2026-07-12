@@ -1,10 +1,10 @@
 import { useState } from "react"
 
 import { FaviconFallbackIcon } from "./icons"
+import type { Bookmark } from "~/lib/bookmarks"
 import { getDomain, getFaviconUrl } from "~/lib/favicon"
 import { isRtl } from "~/lib/rtl"
 import { openUrl } from "~/lib/tabs"
-import type { Bookmark } from "~/mock/bookmarks"
 
 interface BookmarkRowProps {
   bookmark: Bookmark

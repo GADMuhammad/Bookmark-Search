@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 
-import { loadBookmarks } from "~/lib/bookmarks"
+import { loadBookmarks, type Bookmark } from "~/lib/bookmarks"
 import { getDomain } from "~/lib/favicon"
 import { isShortcutModifierPressed, shortcutLabel } from "~/lib/platform"
 import { openUrl } from "~/lib/tabs"
-import type { Bookmark } from "~/mock/bookmarks"
 
 import { BookmarkRow } from "./BookmarkRow"
 import { GoogleFallbackRow } from "./GoogleFallbackRow"
@@ -29,7 +28,8 @@ export function Popup() {
     return bookmarks.filter(
       (bookmark) =>
         bookmark.title.toLowerCase().includes(trimmedQuery) ||
-        getDomain(bookmark.url).toLowerCase().includes(trimmedQuery)
+        getDomain(bookmark.url).toLowerCase().includes(trimmedQuery) ||
+        bookmark.folder?.toLowerCase().includes(trimmedQuery)
     )
   }, [bookmarks, trimmedQuery, hasQuery])
 
@@ -92,7 +92,7 @@ export function Popup() {
               />
             ))
           ) : (
-            <div className="bm-empty-state">No bookmarks match</div>
+            <div className="bm-empty-state">No bookmarks match.</div>
           )}
         </div>
 
