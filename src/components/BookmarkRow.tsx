@@ -16,6 +16,8 @@ export function BookmarkRow({ bookmark, shortcutLabel }: BookmarkRowProps) {
 
   const domain = getDomain(bookmark.url)
   const rtl = isRtl(bookmark.title)
+  const folderLabel = bookmark.folderPath.join(" / ")
+  const subtitle = folderLabel ? `${folderLabel} • ${domain}` : domain
 
   return (
     <a
@@ -46,7 +48,7 @@ export function BookmarkRow({ bookmark, shortcutLabel }: BookmarkRowProps) {
           {bookmark.title}
         </span>
         <span className="bm-domain" dir={rtl ? "rtl" : "ltr"}>
-          {domain}
+          {subtitle}
         </span>
       </span>
 

@@ -29,7 +29,7 @@ export function Popup() {
       (bookmark) =>
         bookmark.title.toLowerCase().includes(trimmedQuery) ||
         getDomain(bookmark.url).toLowerCase().includes(trimmedQuery) ||
-        bookmark.folder?.toLowerCase().includes(trimmedQuery)
+        bookmark.folderPath.join(" ").toLowerCase().includes(trimmedQuery)
     )
   }, [bookmarks, trimmedQuery, hasQuery])
 

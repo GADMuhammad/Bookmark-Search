@@ -2,12 +2,12 @@ export interface Bookmark {
   id: string
   title: string
   url: string
-  folder?: string
+  folderPath: string[]
 }
 
 function flatten(
   nodes: chrome.bookmarks.BookmarkTreeNode[],
-  parentFolder?: string
+  folderPath: string[] = []
 ): Bookmark[] {
   const result: Bookmark[] = []
 
@@ -17,11 +17,12 @@ function flatten(
         id: node.id,
         title: node.title || node.url,
         url: node.url,
-        folder: parentFolder
+        folderPath
       })
     }
     if (node.children) {
-      result.push(...flatten(node.children, node.title))
+      const childPath = node.title ? [...folderPath, node.title] : folderPath
+      result.push(...flatten(node.children, childPath))
     }
   }
 
