@@ -31,6 +31,15 @@
     ],
     "host_permissions": [
       "https://*/*"
-    ]
+    ],
+    "commands": {
+      "open-popup": {
+        "suggested_key": {
+          "default": "Ctrl+E",
+          "mac": "MacCtrl+E"
+        },
+        "description": "Open Bookmark Search Popup"
+      }
+    }
   }
 }
