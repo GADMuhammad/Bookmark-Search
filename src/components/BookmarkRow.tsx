@@ -40,7 +40,8 @@ export function BookmarkRow({ bookmark, shortcutLabel }: BookmarkRowProps) {
       </span>
 
       <span
-        className={`bm-text-column ${rtl ? "bm-text-column--rtl" : "bm-text-column--ltr"}`}>
+        className={`bm-text-column ${rtl ? "bm-text-column--rtl" : "bm-text-column--ltr"}`}
+        style={{ display: "flex", flexDirection: "column" }}>
         <span className="bm-title" dir="auto">
           {bookmark.title}
         </span>
