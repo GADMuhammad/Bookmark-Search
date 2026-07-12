@@ -36,6 +36,13 @@ export default function popup() {
 
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query.trim())}`
 
+  function handleInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter" && hasQuery) {
+      event.preventDefault()
+      openUrl(googleSearchUrl)
+    }
+  }
+
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (!isShortcutModifierPressed(event) || event.shiftKey || event.altKey) {
@@ -75,6 +82,7 @@ export default function popup() {
               setQuery("")
               inputRef.current?.focus()
             }}
+            onKeyDown={handleInputKeyDown}
             inputRef={inputRef}
           />
         </div>

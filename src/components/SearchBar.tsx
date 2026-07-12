@@ -4,6 +4,7 @@ interface SearchBarProps {
   value: string
   onChange: (value: string) => void
   onClear: () => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   inputRef?: React.RefObject<HTMLInputElement>
 }
 
@@ -11,6 +12,7 @@ export function SearchBar({
   value,
   onChange,
   onClear,
+  onKeyDown,
   inputRef
 }: SearchBarProps) {
   return (
@@ -27,6 +29,7 @@ export function SearchBar({
         autoFocus
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        onKeyDown={onKeyDown}
       />
       {value.length > 0 && (
         <button
