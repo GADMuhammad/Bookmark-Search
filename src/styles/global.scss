@@ -1,0 +1,51 @@
+@use "./tokens.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 380px;
+  height: 500px;
+  overflow: hidden;
+  font-family: "Poppins", "Cairo", system-ui, sans-serif;
+  color: var(--bm-text);
+  background: var(--bm-ambient-bg);
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
+}
+
+#__plasmo {
+  width: 100%;
+  height: 100%;
+}
+
+@-webkit-keyframes rowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

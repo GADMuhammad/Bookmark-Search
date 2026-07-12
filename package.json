@@ -21,9 +21,14 @@
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "prettier": "3.2.4",
+    "sass": "^1.101.0",
     "typescript": "5.3.3"
   },
   "manifest": {
+    "permissions": [
+      "bookmarks",
+      "favicon"
+    ],
     "host_permissions": [
       "https://*/*"
     ]

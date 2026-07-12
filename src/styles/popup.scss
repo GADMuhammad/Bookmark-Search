@@ -1,0 +1,321 @@
+// Plain global stylesheet (no CSS modules) for the popup UI. Class names
+// are prefixed bm- to keep them scoped by convention.
+
+.bm-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bm-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.bm-glow--one {
+  top: -60px;
+  left: -40px;
+  background: var(--bm-glow-1);
+}
+
+.bm-glow--two {
+  bottom: -60px;
+  right: -40px;
+  background: var(--bm-glow-2);
+}
+
+.bm-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bm-container-bg);
+  backdrop-filter: var(--bm-blur);
+  -webkit-backdrop-filter: var(--bm-blur);
+  border: 1px solid var(--bm-border);
+  box-shadow: var(--bm-shadow);
+  color: var(--bm-text);
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    color 0.4s ease;
+}
+
+// --- Header / search -------------------------------------------------
+
+.bm-header {
+  flex: none;
+  padding: 16px 16px 12px;
+}
+
+.bm-search-bar {
+  height: 42px;
+  border-radius: 999px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--bm-search-bg);
+  border: 1px solid var(--bm-search-border);
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.bm-search-icon {
+  flex: none;
+  display: flex;
+  opacity: 0.6;
+}
+
+.bm-search-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--bm-text);
+
+  &::placeholder {
+    color: var(--bm-muted);
+  }
+}
+
+.bm-clear-btn {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bm-badge-bg);
+  color: var(--bm-muted);
+  cursor: pointer;
+}
+
+// --- Results -----------------------------------------------------------
+
+.bm-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2px 8px 6px;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bm-scrollbar-thumb) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--bm-scrollbar-thumb);
+    border-radius: 10px;
+  }
+}
+
+.bm-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  animation: rowFadeIn 0.25s ease both;
+
+  &:hover {
+    background: var(--bm-row-hover);
+  }
+}
+
+.bm-favicon-chip {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--bm-favicon-ring);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+  background: #ffffff;
+}
+
+.bm-favicon-chip--fallback {
+  background: var(--bm-badge-bg);
+  color: var(--bm-muted);
+}
+
+.bm-favicon-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.bm-text-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.bm-text-column--rtl {
+  text-align: right;
+  direction: rtl;
+}
+
+.bm-text-column--ltr {
+  text-align: left;
+  direction: ltr;
+}
+
+.bm-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bm-domain {
+  margin-top: 1px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--bm-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bm-badge {
+  flex: none;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 7px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bm-badge-bg);
+  color: var(--bm-badge-text);
+}
+
+.bm-empty-state {
+  padding: 26px 16px 12px;
+  font-size: 12.5px;
+  text-align: center;
+  color: var(--bm-muted);
+}
+
+// --- Google fallback row -------------------------------------------------
+
+.bm-google-footer {
+  flex: none;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--bm-divider);
+}
+
+.bm-google-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bm-google-bg);
+  border: 1px solid var(--bm-divider);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    background 0.4s ease;
+
+  &:hover {
+    background: var(--bm-google-hover);
+  }
+}
+
+.bm-google-row--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.bm-google-row--enabled {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bm-google-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    #4285f4 0%,
+    #ea4335 33%,
+    #fbbc05 66%,
+    #34a853 100%
+  );
+}
+
+.bm-google-chip {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bm-badge-bg);
+}
+
+.bm-google-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bm-google-query {
+  color: var(--bm-google-query);
+  font-weight: 600;
+}
+
+.bm-google-arrow {
+  flex: none;
+  display: flex;
+  opacity: 0.5;
+}
