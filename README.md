@@ -13,6 +13,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
 - **Folder context** — each result shows the domain and, if it lives in a subfolder, that folder's name (e.g. `Work • github.com`). The default "Bookmarks bar" root is never shown, since it adds no information.
 - **RTL support** — Arabic bookmark titles are detected automatically and the row flips to right-aligned, `dir="rtl"` layout.
 - **Automatic theming** — light/dark mode follows `prefers-color-scheme`; there's no manual toggle.
+- **🎨 Premium Glassmorphism UI:** Seamless auto-switching dark/light theme driven natively by `prefers-color-scheme`. Implements a frosted-glass look with dynamic blurs (`blur(24px)`) and ambient glow backdrops.
 
 ## Getting started
 
@@ -51,10 +52,10 @@ src/
 
 ## Permissions
 
-| Permission | Why |
-|---|---|
-| `bookmarks` | Read the bookmark tree to power search. |
-| `favicon` | Resolve favicons through Chrome's built-in favicon API. |
+| Permission                      | Why                                                       |
+| ------------------------------- | --------------------------------------------------------- |
+| `bookmarks`                     | Read the bookmark tree to power search.                   |
+| `favicon`                       | Resolve favicons through Chrome's built-in favicon API.   |
 | `host_permissions: https://*/*` | Needed for the favicon API to resolve icons for any site. |
 
 ## Notes
