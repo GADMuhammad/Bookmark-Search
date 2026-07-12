@@ -36,7 +36,7 @@
       "open-popup": {
         "suggested_key": {
           "default": "Ctrl+E",
-          "mac": "MacCtrl+E"
+          "mac": "Command+E"
         },
         "description": "Open Bookmark Search Popup"
       }
