@@ -8,6 +8,8 @@ import { getDomain } from "~lib/favicon"
 import { isShortcutModifierPressed, shortcutLabel } from "~lib/platform"
 import { openUrl } from "~lib/tabs"
 
+import "~/style.scss"
+
 const SHORTCUT_COUNT = 9
 
 export default function popup() {
@@ -61,8 +63,8 @@ export default function popup() {
 
   return (
     <div className="bm-stage">
-      {/* <div className="bm-glow bm-glow--one" /> */}
-      {/* <div className="bm-glow bm-glow--two" /> */}
+      <div className="bm-glow bm-glow--one" />
+      <div className="bm-glow bm-glow--two" />
 
       <div className="bm-card">
         <div className="bm-header">
