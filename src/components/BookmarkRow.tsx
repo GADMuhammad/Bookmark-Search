@@ -16,8 +16,8 @@ export function BookmarkRow({ bookmark, shortcutLabel }: BookmarkRowProps) {
 
   const domain = getDomain(bookmark.url)
   const rtl = isRtl(bookmark.title)
-  const folderLabel = bookmark.folderPath.join(" / ")
-  const subtitle = folderLabel ? `${folderLabel} • ${domain}` : domain
+  const immediateFolder = bookmark.folderPath.at(-1)
+  const subtitle = immediateFolder ? `${immediateFolder} • ${domain}` : domain
 
   return (
     <a

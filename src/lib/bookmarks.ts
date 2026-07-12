@@ -5,9 +5,15 @@ export interface Bookmark {
   folderPath: string[]
 }
 
+// depth 0 = the invisible tree root; depth 1 = the browser's default root
+// containers ("Bookmarks bar" / "Other bookmarks" / "Mobile bookmarks", or
+// their localized equivalents). Every bookmark lives under one of those by
+// definition, so their titles are excluded from the breadcrumb path — only
+// real, user-created subfolders (depth 2+) are included.
 function flatten(
   nodes: chrome.bookmarks.BookmarkTreeNode[],
-  folderPath: string[] = []
+  folderPath: string[] = [],
+  depth = 0
 ): Bookmark[] {
   const result: Bookmark[] = []
 
@@ -21,8 +27,12 @@ function flatten(
       })
     }
     if (node.children) {
-      const childPath = node.title ? [...folderPath, node.title] : folderPath
-      result.push(...flatten(node.children, childPath))
+      const isDefaultRootContainer = depth === 1
+      const childPath =
+        node.title && !isDefaultRootContainer
+          ? [...folderPath, node.title]
+          : folderPath
+      result.push(...flatten(node.children, childPath, depth + 1))
     }
   }
 
