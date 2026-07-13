@@ -88,7 +88,7 @@ export default function popup() {
         </div>
 
         <div className="bm-results">
-          {filtered.length > 0 ? (
+          {filtered.length ? (
             filtered.map((bookmark, index) => (
               <BookmarkRow
                 key={bookmark.id}
