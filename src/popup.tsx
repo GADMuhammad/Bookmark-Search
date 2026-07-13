@@ -21,10 +21,10 @@ export default function popup() {
     loadBookmarks().then(setBookmarks)
   }, [])
 
-  const trimmedQuery = query.trim().toLowerCase()
-  const hasQuery = trimmedQuery.length > 0
+  const trimmedQuery: string = query.trim().toLowerCase()
+  const hasQuery: boolean = !!trimmedQuery.length
 
-  const filtered = useMemo(() => {
+  const filtered: Bookmark[] = useMemo(() => {
     if (!hasQuery) return bookmarks
     return bookmarks.filter(
       (bookmark) =>
@@ -50,7 +50,7 @@ export default function popup() {
       }
 
       if (/^[1-9]$/.test(event.key)) {
-        const target = filtered[Number(event.key) - 1]
+        const target: Bookmark = filtered[Number(event.key) - 1]
         if (target) {
           event.preventDefault()
           openUrl(target.url)

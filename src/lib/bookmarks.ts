@@ -13,7 +13,7 @@ export interface Bookmark {
 function flatten(
   nodes: chrome.bookmarks.BookmarkTreeNode[],
   folderPath: string[] = [],
-  depth = 0
+  depth = 0 // The Invisible Root
 ): Bookmark[] {
   const result: Bookmark[] = []
 
@@ -21,7 +21,7 @@ function flatten(
     if (url) result.push({ id, title: title || url, url, folderPath })
 
     if (children) {
-      const isDefaultRootContainer: boolean = depth === 1
+      const isDefaultRootContainer: boolean = depth === 1 // depth 1 is the default bookmark root that contains (Bookmarks Bar, Other Bookmarks, Mobile Bookmarks)
       const childPath =
         title && !isDefaultRootContainer ? [...folderPath, title] : folderPath
       result.push(...flatten(children, childPath, depth + 1))
