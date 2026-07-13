@@ -17,22 +17,14 @@ function flatten(
 ): Bookmark[] {
   const result: Bookmark[] = []
 
-  for (const node of nodes) {
-    if (node.url) {
-      result.push({
-        id: node.id,
-        title: node.title || node.url,
-        url: node.url,
-        folderPath
-      })
-    }
-    if (node.children) {
-      const isDefaultRootContainer = depth === 1
+  for (const { id, url, title, children } of nodes) {
+    if (url) result.push({ id, title: title || url, url, folderPath })
+
+    if (children) {
+      const isDefaultRootContainer: boolean = depth === 1
       const childPath =
-        node.title && !isDefaultRootContainer
-          ? [...folderPath, node.title]
-          : folderPath
-      result.push(...flatten(node.children, childPath, depth + 1))
+        title && !isDefaultRootContainer ? [...folderPath, title] : folderPath
+      result.push(...flatten(children, childPath, depth + 1))
     }
   }
 

@@ -54,7 +54,7 @@ body {
   // --bm-container-bg: rgba(219, 220, 222, 0.6);
   --bm-blur: blur(20px) saturate(120%);
   --bm-border: rgba(255, 255, 255, 0.5);
-  --bm-shadow: 0 24px 70px rgba(79, 70, 229, 0.16);
+  --bm-shadow: 0 24px 70px rgba(219, 220, 222, 0.6);
 
   --bm-ambient-bg: radial-gradient(
     130% 90% at 82% 0%,
@@ -62,8 +62,8 @@ body {
     #d3d3d3 42%,
     #bdbdbd 100%
   );
-  --bm-glow-1: #a5b4fc;
-  --bm-glow-2: #c4b5fd;
+  --bm-glow-1: #e9e9e9;
+  --bm-glow-2: #d3d3d3;
 
   --bm-text: #1e293b;
   --bm-muted: rgba(30, 41, 59, 0.5);

@@ -101,7 +101,9 @@ export default function popup() {
               />
             ))
           ) : (
-            <div className="bm-empty-state">No bookmarks match.</div>
+            <div className="bm-empty-state">
+              {`No bookmarks match. ${trimmedQuery ? "Press Enter after typing to search on Google." : ""}`}
+            </div>
           )}
         </div>
 
