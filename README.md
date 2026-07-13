@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://2ff8dacb-b398-4347-af37-84545368208b.claudeusercontent.com/v1/design/projects/2ff8dacb-b398-4347-af37-84545368208b/serve/Quran%20Tab%20Bookmark%20Popup-print.dc.html?t=57e4a9ebb54bc3c5a027900d6ffffe5892aa32d75f4c909680b8e0a32febf411.8d3e955d-8810-476a-8a5b-e7423333ad00.1a45149c-652a-480a-a3ea-079130ec219f.1783965591&direct=1"><img src="./assets/preview.jpeg"></a>
+  <a href="https://2ff8dacb-b398-4347-af37-84545368208b.claudeusercontent.com/v1/design/projects/2ff8dacb-b398-4347-af37-84545368208b/serve/Quran%20Tab%20Bookmark%20Popup-print.dc.html?t=57e4a9ebb54bc3c5a027900d6ffffe5892aa32d75f4c909680b8e0a32febf411.8d3e955d-8810-476a-8a5b-e7423333ad00.1a45149c-652a-480a-a3ea-079130ec219f.1783965591&direct=1" target="_blank"><img src="./assets/preview.jpeg"></a>
 </p>
 
 # Bookmark Search
