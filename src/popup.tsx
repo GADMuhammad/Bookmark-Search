@@ -22,9 +22,9 @@ export default function popup() {
   }, [])
 
   const trimmedQuery: string = query.trim().toLowerCase()
-  const hasQuery: boolean = !!trimmedQuery.length
+  const hasQuery: boolean = trimmedQuery.length > 0
 
-  const filtered: Bookmark[] = useMemo(() => {
+  const filteredBookmarks: Bookmark[] = useMemo(() => {
     if (!hasQuery) return bookmarks
     return bookmarks.filter(
       (bookmark) =>
@@ -50,7 +50,7 @@ export default function popup() {
       }
 
       if (/^[1-9]$/.test(event.key)) {
-        const target: Bookmark = filtered[Number(event.key) - 1]
+        const target: Bookmark = filteredBookmarks[Number(event.key) - 1]
         if (target) {
           event.preventDefault()
           openUrl(target.url)
@@ -58,7 +58,7 @@ export default function popup() {
         return
       }
 
-      if (event.key.toLowerCase() === "g" && hasQuery) {
+      if (hasQuery && event.key.toLowerCase() === "g") {
         event.preventDefault()
         openUrl(googleSearchUrl)
       }
@@ -66,7 +66,7 @@ export default function popup() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [filtered, hasQuery, googleSearchUrl])
+  }, [filteredBookmarks, hasQuery, googleSearchUrl])
 
   return (
     <div className="bm-stage">
@@ -93,8 +93,8 @@ export default function popup() {
         </div>
 
         <div className="bm-results">
-          {filtered.length ? (
-            filtered.map((bookmark, index) => (
+          {filteredBookmarks.length ? (
+            filteredBookmarks.map((bookmark, index) => (
               <BookmarkRow
                 key={bookmark.id}
                 bookmark={bookmark}

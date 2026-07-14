@@ -1,10 +1,11 @@
 import { useState } from "react"
 
-import { FaviconFallbackIcon } from "./icons"
 import type { Bookmark } from "~/lib/bookmarks"
 import { getDomain, getFaviconUrl } from "~/lib/favicon"
 import { isRtl } from "~/lib/rtl"
 import { openUrl } from "~/lib/tabs"
+
+import { FaviconFallbackIcon } from "./icons"
 
 interface BookmarkRowProps {
   bookmark: Bookmark
@@ -16,6 +17,9 @@ export function BookmarkRow({ bookmark, shortcutLabel }: BookmarkRowProps) {
 
   const domain = getDomain(bookmark.url)
   const rtl = isRtl(bookmark.title)
+  // to get the last folder in the path, NOT all the path.
+  // for example if we have a google bookmark in path: (folder1 >> folder2 >> google.com)
+  // we only need (folder2 • google.com)
   const immediateFolder = bookmark.folderPath.at(-1)
   const subtitle = immediateFolder ? `${immediateFolder} • ${domain}` : domain
 
