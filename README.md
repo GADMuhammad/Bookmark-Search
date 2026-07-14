@@ -9,6 +9,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
 ## Features
 
 - **Instant search** — filters your real bookmarks live by title, domain, and immediate parent folder.
+- **Live bookmark count** — the search placeholder shows your total bookmark count (e.g. `Search 128 Bookmarks or Google...`), so you always know how much is being searched.
 - **⚡ Fast Google Search:** Pressing `Enter` while focused on the search input instantly triggers a Google search for your query, mirroring the behavior of `⌘G` / `Ctrl+G` without needing to navigate downwards.
 - **Keyboard-driven** — no mouse required:
   - `⌘E` / `Ctrl+E` — open the popup from anywhere in the browser.
