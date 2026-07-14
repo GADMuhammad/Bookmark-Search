@@ -45,6 +45,12 @@ export default function popup() {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Backspace" && document.activeElement !== inputRef.current) {
+        event.preventDefault()
+        inputRef.current?.focus()
+        return
+      }
+
       if (!isShortcutModifierPressed(event) || event.shiftKey || event.altKey) {
         return
       }
