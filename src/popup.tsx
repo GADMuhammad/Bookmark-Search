@@ -116,6 +116,7 @@ export default function popup() {
           query={query.trim()}
           shortcutLabel={shortcutLabel("G")}
           hasQuery={hasQuery}
+          hasQuery={hasQuery}
           onOpen={() => openUrl(googleSearchUrl)}
         />
       </div>
