@@ -27,7 +27,8 @@
   "manifest": {
     "permissions": [
       "bookmarks",
-      "favicon"
+      "favicon",
+      "tabs"
     ],
     "host_permissions": [
       "https://*/*"
