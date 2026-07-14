@@ -6,6 +6,7 @@ interface SearchBarProps {
   onClear: () => void
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   inputRef?: React.RefObject<HTMLInputElement>
+  placeholder?: string
 }
 
 export function SearchBar({
@@ -13,7 +14,8 @@ export function SearchBar({
   onChange,
   onClear,
   onKeyDown,
-  inputRef
+  inputRef,
+  placeholder
 }: SearchBarProps) {
   return (
     <div className="bm-search-bar">
@@ -24,7 +26,7 @@ export function SearchBar({
         ref={inputRef}
         className="bm-search-input"
         type="text"
-        placeholder="Search bookmarks or google..."
+        placeholder={placeholder ?? "Search bookmarks or google..."}
         dir="auto"
         autoFocus
         value={value}

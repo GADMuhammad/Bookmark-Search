@@ -3,25 +3,26 @@ import { ArrowUpRightIcon, GoogleGIcon } from "./icons"
 interface GoogleFallbackRowProps {
   query: string
   shortcutLabel: string
-  disabled: boolean
+  hasQuery: boolean
   onOpen: () => void
 }
 
 export function GoogleFallbackRow({
   query,
   shortcutLabel,
-  disabled,
+  hasQuery,
   onOpen
 }: GoogleFallbackRowProps) {
   return (
     <div className="bm-google-footer">
       <a
-        className={`bm-google-row ${disabled ? "bm-google-row--disabled" : "bm-google-row--enabled"}`}
+        tabIndex={hasQuery ? undefined : -1}
+        className={`bm-google-row ${hasQuery ? "bm-google-row--enabled" : "bm-google-row--disabled"}`}
         href="#"
-        aria-disabled={disabled}
+        aria-disabled={!hasQuery}
         onClick={(event) => {
           event.preventDefault()
-          if (!disabled) onOpen()
+          if (hasQuery) onOpen()
         }}>
         <span className="bm-google-accent" />
         <span className="bm-google-chip">
@@ -30,7 +31,7 @@ export function GoogleFallbackRow({
         <span className="bm-google-label" dir="auto">
           Search Google for &quot;
           <span className="bm-google-query">
-            {disabled ? "bookmarks" : query}
+            {hasQuery ? query : "bookmarks"}
           </span>
           &quot;
         </span>

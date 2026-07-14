@@ -84,6 +84,11 @@ export default function popup() {
             }}
             onKeyDown={handleInputKeyDown}
             inputRef={inputRef}
+            placeholder={
+              bookmarks.length
+                ? `Search ${bookmarks.length} bookmarks or google...`
+                : "Search Google"
+            }
           />
         </div>
 
@@ -110,7 +115,7 @@ export default function popup() {
         <GoogleFallbackRow
           query={query.trim()}
           shortcutLabel={shortcutLabel("G")}
-          disabled={!hasQuery}
+          hasQuery={hasQuery}
           onOpen={() => openUrl(googleSearchUrl)}
         />
       </div>
