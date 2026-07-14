@@ -86,7 +86,7 @@ export default function popup() {
             inputRef={inputRef}
             placeholder={
               bookmarks.length
-                ? `Search ${bookmarks.length} bookmark${bookmarks.length > 1 ? "s" : ""} or google...`
+                ? `Search ${bookmarks.length} Bookmark${bookmarks.length > 1 ? "s" : ""} or Google...`
                 : "Search Google..."
             }
           />
