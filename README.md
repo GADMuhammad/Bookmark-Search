@@ -14,6 +14,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
   - `⌘E` / `Ctrl+E` — open the popup from anywhere in the browser.
   - `⌘1`–`⌘9` / `Ctrl+1`–`Ctrl+9` — jump straight to one of the visible results.
   - `⌘G` / `Ctrl+G` (or `Enter`) — run a Google search for your current query.
+- **♿ Full Accessibility (A11y):** Supports standard accessibility practices. Users can naturally navigate through search results and controls using `Tab` and `Shift+Tab`, with clear focus indicators for a seamless keyboard-only experience.
 - **Real favicons** — pulled via Chrome's extension favicon API, with a clean fallback icon if one fails to load.
 - **Folder context** — each result shows the domain and, if it lives in a subfolder, that folder's name (e.g. `Work • github.com`). The default "Bookmarks bar" root is never shown, since it adds no information.
 - **RTL support** — Arabic bookmark titles are detected automatically and the row flips to right-aligned, `dir="rtl"` layout.
