@@ -26,7 +26,7 @@ export function SearchBar({
         ref={inputRef}
         className="bm-search-input"
         type="text"
-        placeholder={placeholder ?? "Search bookmarks or google..."}
+        placeholder={placeholder ?? "Search Bookmarks or Google..."}
         dir="auto"
         autoFocus
         value={value}
