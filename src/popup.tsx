@@ -5,6 +5,7 @@ import { GoogleFallbackRow } from "~components/GoogleFallbackRow"
 import { SearchBar } from "~components/SearchBar"
 import { loadBookmarks, type Bookmark } from "~lib/bookmarks"
 import { getDomain } from "~lib/favicon"
+import { bestFuzzyScore } from "~lib/fuzzy"
 import { isShortcutModifierPressed, shortcutLabel } from "~lib/platform"
 import { openUrl } from "~lib/tabs"
 
@@ -26,12 +27,25 @@ export default function popup() {
 
   const filteredBookmarks: Bookmark[] = useMemo(() => {
     if (!hasQuery) return bookmarks
-    return bookmarks.filter(
-      (bookmark) =>
-        bookmark.title.toLowerCase().includes(trimmedQuery) ||
-        getDomain(bookmark.url).toLowerCase().includes(trimmedQuery) ||
-        bookmark.folderPath.join(" ").toLowerCase().includes(trimmedQuery)
-    )
+
+    return bookmarks
+      .map((bookmark: Bookmark) => ({
+        bookmark,
+        score: bestFuzzyScore(
+          [
+            bookmark.title,
+            getDomain(bookmark.url),
+            bookmark.folderPath.join(" ")
+          ],
+          trimmedQuery
+        )
+      }))
+      .filter(
+        (entry): entry is { bookmark: Bookmark; score: number } =>
+          entry.score !== null
+      )
+      .sort((a, b) => b.score - a.score)
+      .map((entry) => entry.bookmark)
   }, [bookmarks, trimmedQuery, hasQuery])
 
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query.trim())}`
@@ -45,7 +59,10 @@ export default function popup() {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Backspace" && document.activeElement !== inputRef.current) {
+      if (
+        event.key === "Backspace" &&
+        document.activeElement !== inputRef.current
+      ) {
         event.preventDefault()
         inputRef.current?.focus()
         return

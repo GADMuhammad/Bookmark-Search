@@ -8,15 +8,15 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
 
 ## Features
 
-- **Instant search** — filters your real bookmarks live by title, domain, and immediate parent folder.
+- **Fuzzy search** — matches don't need to be exact or contiguous; results are ranked by relevance across title, domain, and immediate parent folder, so a quick, imprecise query like `gthb` still finds `github.com`.
 - **Live bookmark count** — the search placeholder shows your total bookmark count (e.g. `Search 128 Bookmarks or Google...`), so you always know how much is being searched.
 - **⚡ Fast Google Search:** Pressing `Enter` while focused on the search input instantly triggers a Google search for your query, mirroring the behavior of `⌘G` / `Ctrl+G` without needing to navigate downwards.
+- **♿ Full Accessibility (A11y):** Supports standard accessibility practices. Users can naturally navigate through search results and controls using `Tab` and `Shift+Tab`, with clear focus indicators for a seamless keyboard-only experience.
 - **Keyboard-driven** — no mouse required:
   - `⌘E` / `Ctrl+E` — open the popup from anywhere in the browser.
   - `⌘1`–`⌘9` / `Ctrl+1`–`Ctrl+9` — jump straight to one of the visible results.
   - `⌘G` / `Ctrl+G` (or `Enter`) — run a Google search for your current query.
   - `Backspace` — instantly returns focus to the search input, no matter where focus currently is in the popup.
-- **♿ Full Accessibility (A11y):** Supports standard accessibility practices. Users can naturally navigate through search results and controls using `Tab` and `Shift+Tab`, with clear focus indicators for a seamless keyboard-only experience.
 - **Smart tab reuse** — opening a bookmark reuses the current tab if it's an empty new tab, or opens a new tab alongside your existing one if you're al
   ready browsing a site, so you never lose your place.
 - **Real favicons** — pulled via Chrome's extension favicon API, with a clean fallback icon if one fails to load.
