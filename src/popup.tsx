@@ -49,6 +49,7 @@ export default function popup() {
   }, [bookmarks, trimmedQuery, hasQuery])
 
   const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query.trim())}`
+  const googleShortcut = shortcutLabel("G")
 
   function handleInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "Enter" && hasQuery) {
@@ -130,14 +131,21 @@ export default function popup() {
             ))
           ) : (
             <div className="bm-empty-state">
-              {`No bookmarks match. ${trimmedQuery ? "Press Enter after typing to search on Google." : ""}`}
+              <p>No bookmarks match.</p>
+              {trimmedQuery && (
+                <p className="bm-empty-state-hint">
+                  Press <span className="bm-empty-state-badge">Enter</span> or{" "}
+                  <span className="bm-empty-state-badge">{googleShortcut}</span>{" "}
+                  to search Google instead.
+                </p>
+              )}
             </div>
           )}
         </div>
 
         <GoogleFallbackRow
           query={query.trim()}
-          shortcutLabel={shortcutLabel("G")}
+          shortcutLabel={googleShortcut}
           hasQuery={hasQuery}
           onOpen={() => openUrl(googleSearchUrl)}
         />
