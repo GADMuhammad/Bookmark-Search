@@ -20,7 +20,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
 - **Smart tab reuse** — opening a bookmark reuses the current tab if it's an empty new tab, or opens a new tab alongside your existing one if you're al
   ready browsing a site, so you never lose your place.
 - **Real favicons** — pulled via Chrome's extension favicon API, with a clean fallback icon if one fails to load.
-- **Delete bookmarks in place** — hovering a result swaps its favicon for a delete (X) button; a confirmation prompt (in Arabic or English, based on your browser's language) protects against accidental removal before it's deleted straight from Chrome's bookmarks.
+- **Delete bookmarks in place** — hover a result to reveal a delete button in place of its favicon.
 - **Folder context** — each result shows the domain and, if it lives in a subfolder, that folder's name (e.g. `Work • github.com`). The default "Bookmarks bar" root is never shown, since it adds no information.
 - **RTL support** — Arabic bookmark titles are detected automatically and the row flips to right-aligned, `dir="rtl"` layout.
 - **Automatic theming** — light/dark mode follows `prefers-color-scheme`; there's no manual toggle.
