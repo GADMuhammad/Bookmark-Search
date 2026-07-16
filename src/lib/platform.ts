@@ -15,3 +15,8 @@ export function isShortcutModifierPressed(event: KeyboardEvent): boolean {
   // command on Mac, or ctrl on Windows
   return isMac() ? event.metaKey : event.ctrlKey
 }
+
+export function isArabicLocale(): boolean {
+  if (typeof navigator === "undefined") return false
+  return navigator.language?.toLowerCase().startsWith("ar")
+}

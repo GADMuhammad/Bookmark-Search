@@ -85,6 +85,9 @@ body {
   --bm-google-query: #2563eb;
 
   --bm-scrollbar-thumb: rgba(15, 23, 42, 0.16);
+
+  --bm-danger: #dc2626;
+  --bm-danger-bg: rgba(220, 38, 38, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -122,5 +125,8 @@ body {
     --bm-google-query: #c9a97e;
 
     --bm-scrollbar-thumb: rgba(255, 255, 255, 0.14);
+
+    --bm-danger: #f87171;
+    --bm-danger-bg: rgba(248, 113, 113, 0.16);
   }
 }

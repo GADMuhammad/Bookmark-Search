@@ -38,3 +38,9 @@ export async function loadBookmarks(): Promise<Bookmark[]> {
   }
   return []
 }
+
+export async function deleteBookmark(id: string): Promise<void> {
+  if (typeof chrome !== "undefined" && chrome.bookmarks?.remove) {
+    await chrome.bookmarks.remove(id)
+  }
+}

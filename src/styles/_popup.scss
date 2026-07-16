@@ -245,6 +245,65 @@
   color: var(--bm-badge-text);
 }
 
+// Both children occupy the same grid cell, so the trailing slot auto-sizes
+// to whichever is wider (e.g. a "Ctrl+9" badge) instead of clipping either.
+.bm-row-trailing {
+  display: grid;
+  align-items: center;
+  justify-items: end;
+  flex: none;
+}
+
+.bm-row-shortcut,
+.bm-delete-btn {
+  grid-area: 1 / 1;
+}
+
+.bm-row-shortcut {
+  // Purely decorative text overlapping the delete button's grid cell — must
+  // never intercept hover/click, or it blocks the button underneath.
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+.bm-delete-btn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 7px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bm-badge-bg);
+  color: var(--bm-muted);
+  cursor: pointer;
+  opacity: 0;
+  // pointer-events (not visibility) hides it while invisible, so it stays
+  // reachable via Tab for keyboard users and can reveal itself on :focus.
+  pointer-events: none;
+  transition:
+    opacity 0.12s ease,
+    background 0.12s ease,
+    color 0.12s ease;
+
+  &:hover {
+    background: var(--bm-danger-bg);
+    color: var(--bm-danger);
+  }
+}
+
+.bm-row:hover .bm-row-shortcut,
+.bm-row-trailing:focus-within .bm-row-shortcut {
+  opacity: 0;
+}
+
+.bm-row:hover .bm-delete-btn,
+.bm-row-trailing:focus-within .bm-delete-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .bm-empty-state {
   padding: 26px 16px 12px;
   font-size: 12.5px;

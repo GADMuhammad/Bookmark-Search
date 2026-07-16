@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { BookmarkRow } from "~components/BookmarkRow"
 import { GoogleFallbackRow } from "~components/GoogleFallbackRow"
 import { SearchBar } from "~components/SearchBar"
-import { loadBookmarks, type Bookmark } from "~lib/bookmarks"
+import { deleteBookmark, loadBookmarks, type Bookmark } from "~lib/bookmarks"
 import { getDomain } from "~lib/favicon"
 import { bestFuzzyScore } from "~lib/fuzzy"
 import { isShortcutModifierPressed, shortcutLabel } from "~lib/platform"
@@ -21,6 +21,11 @@ export default function popup() {
   useEffect(() => {
     loadBookmarks().then(setBookmarks)
   }, [])
+
+  async function handleDelete(bookmark: Bookmark) {
+    setBookmarks((prev) => prev.filter((b) => b.id !== bookmark.id))
+    await deleteBookmark(bookmark.id)
+  }
 
   const trimmedQuery: string = query.trim().toLowerCase()
   const hasQuery: boolean = trimmedQuery.length > 0
@@ -127,6 +132,7 @@ export default function popup() {
                     ? shortcutLabel(String(index + 1))
                     : undefined
                 }
+                onDelete={handleDelete}
               />
             ))
           ) : (
