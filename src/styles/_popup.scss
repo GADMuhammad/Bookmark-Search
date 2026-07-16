@@ -168,10 +168,18 @@
   }
 }
 
-.bm-favicon-chip {
+// Fixed-size slot shared by the favicon and the delete button, so hovering
+// a row swaps one for the other in place instead of reserving extra width.
+.bm-favicon-slot {
+  position: relative;
   flex: none;
   width: 32px;
   height: 32px;
+}
+
+.bm-favicon-chip {
+  position: absolute;
+  inset: 0;
   border-radius: 9px;
   overflow: hidden;
   display: flex;
@@ -180,6 +188,9 @@
   border: 1px solid var(--bm-favicon-ring);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
   background: #ffffff;
+  // Purely decorative — must never intercept the delete button's hover/click.
+  pointer-events: none;
+  transition: opacity 0.12s ease;
 }
 
 .bm-favicon-chip--fallback {
@@ -245,38 +256,17 @@
   color: var(--bm-badge-text);
 }
 
-// Both children occupy the same grid cell, so the trailing slot auto-sizes
-// to whichever is wider (e.g. a "Ctrl+9" badge) instead of clipping either.
-.bm-row-trailing {
-  display: grid;
-  align-items: center;
-  justify-items: end;
-  flex: none;
-}
-
-.bm-row-shortcut,
 .bm-delete-btn {
-  grid-area: 1 / 1;
-}
-
-.bm-row-shortcut {
-  // Purely decorative text overlapping the delete button's grid cell — must
-  // never intercept hover/click, or it blocks the button underneath.
-  pointer-events: none;
-  transition: opacity 0.12s ease;
-}
-
-.bm-delete-btn {
-  width: 22px;
-  height: 22px;
+  position: absolute;
+  inset: 0;
   border: none;
-  border-radius: 7px;
+  border-radius: 9px;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bm-badge-bg);
-  color: var(--bm-muted);
+  background: var(--bm-danger-bg);
+  color: var(--bm-danger);
   cursor: pointer;
   opacity: 0;
   // pointer-events (not visibility) hides it while invisible, so it stays
@@ -288,18 +278,18 @@
     color 0.12s ease;
 
   &:hover {
-    background: var(--bm-danger-bg);
-    color: var(--bm-danger);
+    background: var(--bm-danger);
+    color: #fff;
   }
 }
 
-.bm-row:hover .bm-row-shortcut,
-.bm-row-trailing:focus-within .bm-row-shortcut {
+.bm-row:hover .bm-favicon-chip,
+.bm-favicon-slot:focus-within .bm-favicon-chip {
   opacity: 0;
 }
 
 .bm-row:hover .bm-delete-btn,
-.bm-row-trailing:focus-within .bm-delete-btn {
+.bm-favicon-slot:focus-within .bm-delete-btn {
   opacity: 1;
   pointer-events: auto;
 }

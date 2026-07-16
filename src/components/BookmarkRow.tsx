@@ -51,18 +51,28 @@ export function BookmarkRow({
         event.preventDefault()
         openUrl(bookmark.url)
       }}>
-      <span
-        className={`bm-favicon-chip${iconFailed ? " bm-favicon-chip--fallback" : ""}`}>
-        {iconFailed ? (
-          <FaviconFallbackIcon />
-        ) : (
-          <img
-            className="bm-favicon-img"
-            src={getFaviconUrl(bookmark.url)}
-            alt=""
-            onError={() => setIconFailed(true)}
-          />
-        )}
+      <span className="bm-favicon-slot">
+        <span
+          className={`bm-favicon-chip${iconFailed ? " bm-favicon-chip--fallback" : ""}`}>
+          {iconFailed ? (
+            <FaviconFallbackIcon />
+          ) : (
+            <img
+              className="bm-favicon-img"
+              src={getFaviconUrl(bookmark.url)}
+              alt=""
+              onError={() => setIconFailed(true)}
+            />
+          )}
+        </span>
+
+        <button
+          type="button"
+          className="bm-delete-btn"
+          aria-label={`Delete "${bookmark.title}"`}
+          onClick={handleDeleteClick}>
+          <ClearIcon />
+        </button>
       </span>
 
       <span
@@ -76,18 +86,7 @@ export function BookmarkRow({
         </span>
       </span>
 
-      <span className="bm-row-trailing">
-        {shortcutLabel && (
-          <span className="bm-badge bm-row-shortcut">{shortcutLabel}</span>
-        )}
-        <button
-          type="button"
-          className="bm-delete-btn"
-          aria-label={`Delete "${bookmark.title}"`}
-          onClick={handleDeleteClick}>
-          <ClearIcon />
-        </button>
-      </span>
+      {shortcutLabel && <span className="bm-badge">{shortcutLabel}</span>}
     </a>
   )
 }
