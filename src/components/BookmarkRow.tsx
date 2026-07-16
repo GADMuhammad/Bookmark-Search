@@ -20,6 +20,17 @@ function deleteConfirmMessage(title: string): string {
     : `Delete "${title}"? This can't be undone.`
 }
 
+// window.confirm() blocks the event loop, which can leave the element the
+// user clicked stuck in :hover (Chrome/WebKit won't re-evaluate it until
+// the next real mouse move). Toggling pointer-events forces an immediate
+// re-check, so the hover state clears as soon as the dialog closes.
+function clearStaleHover() {
+  document.body.style.pointerEvents = "none"
+  requestAnimationFrame(() => {
+    document.body.style.pointerEvents = ""
+  })
+}
+
 export function BookmarkRow({
   bookmark,
   shortcutLabel,
@@ -35,12 +46,16 @@ export function BookmarkRow({
   const immediateFolder = bookmark.folderPath.at(-1)
   const subtitle = immediateFolder ? `${immediateFolder} • ${domain}` : domain
 
-  function handleDeleteClick(event: React.MouseEvent) {
+  function handleDeleteClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
     event.stopPropagation()
-    if (window.confirm(deleteConfirmMessage(bookmark.title))) {
-      onDelete(bookmark)
-    }
+    const confirmed = window.confirm(deleteConfirmMessage(bookmark.title))
+    // confirm() returns focus to this button, which keeps the delete icon
+    // visible via :focus-within — blur so it reverts once the mouse isn't
+    // actually hovering it anymore (e.g. after cancelling).
+    event.currentTarget.blur()
+    clearStaleHover()
+    if (confirmed) onDelete(bookmark)
   }
 
   return (
