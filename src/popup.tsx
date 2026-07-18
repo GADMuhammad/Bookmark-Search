@@ -74,6 +74,27 @@ export default function popup() {
         return
       }
 
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        const focusable = Array.from(
+          document.querySelectorAll<HTMLElement>("input, a, button")
+        ).filter((element) => element.tabIndex >= 0)
+
+        if (!focusable.length) return
+
+        event.preventDefault()
+        const currentIndex = focusable.indexOf(
+          document.activeElement as HTMLElement
+        )
+
+        const nextIndex =
+          event.key === "ArrowDown"
+            ? Math.min(currentIndex + 1, focusable.length - 1)
+            : Math.max(currentIndex - 1, 0)
+
+        focusable[nextIndex]?.focus()
+        return
+      }
+
       if (!isShortcutModifierPressed(event) || event.shiftKey || event.altKey) {
         return
       }
