@@ -74,6 +74,7 @@ export default function popup() {
         return
       }
 
+      // navigation using up and down btns:
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         const focusable = Array.from(
           document.querySelectorAll<HTMLElement>("input, a, button")
@@ -86,15 +87,16 @@ export default function popup() {
           document.activeElement as HTMLElement
         )
         const length = focusable.length
+        const goingDown = event.key === "ArrowDown"
 
-        const nextIndex =
-          currentIndex === -1
-            ? event.key === "ArrowDown"
-              ? 0
-              : length - 1
-            : event.key === "ArrowDown"
-              ? (currentIndex + 1) % length
-              : (currentIndex - 1 + length) % length
+        let nextIndex: number
+        if (currentIndex === -1) {
+          nextIndex = goingDown ? 0 : length - 1
+        } else if (goingDown) {
+          nextIndex = (currentIndex + 1) % length
+        } else {
+          nextIndex = (currentIndex - 1 + length) % length
+        }
 
         focusable[nextIndex]?.focus()
         return

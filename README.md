@@ -16,6 +16,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
   - `⌘E` / `Ctrl+E` — open the popup from anywhere in the browser.
   - `⌘1`–`⌘9` / `Ctrl+1`–`Ctrl+9` — jump straight to one of the visible results.
   - `⌘G` / `Ctrl+G` (or `Enter`) — run a Google search for your current query.
+  - `↓` / `↑` — move focus to the next/previous result, same as `Tab` / `Shift+Tab`, wrapping around at the first and last item.
   - `Backspace` — instantly returns focus to the search input, no matter where focus currently is in the popup.
 - **Smart tab reuse** — opening a bookmark reuses the current tab if it's an empty new tab, or opens a new tab alongside your existing one if you're al
   ready browsing a site, so you never lose your place.
