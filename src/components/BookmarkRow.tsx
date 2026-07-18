@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import type { Bookmark } from "~/lib/bookmarks"
 import { getDomain, getFaviconUrl } from "~/lib/favicon"
-import { isArabicLocale } from "~/lib/platform"
+import { isArabicLocale, isShortcutModifierPressed } from "~/lib/platform"
 import { isRtl } from "~/lib/rtl"
 import { openUrl } from "~/lib/tabs"
 
@@ -21,11 +21,11 @@ function deleteConfirmMessage(title: string): string {
 }
 
 // window.confirm() blocks the event loop, which can leave the element the
-// user clicked stuck in :hover (Chrome/WebKit won't re-evaluate it until
-// the next real mouse move). Toggling pointer-events forces an immediate
-// re-check, so the hover state clears as soon as the dialog closes.
-function clearStaleHover(event: React.MouseEvent<HTMLButtonElement>) {
-  event.currentTarget.blur()
+// user interacted with stuck in :hover (Chrome/WebKit won't re-evaluate it
+// until the next real mouse move). Toggling pointer-events forces an
+// immediate re-check, so the hover state clears as soon as the dialog closes.
+function clearStaleHover(element: HTMLElement) {
+  element.blur()
   document.body.style.pointerEvents = "none"
   requestAnimationFrame(() => {
     document.body.style.pointerEvents = ""
@@ -47,15 +47,31 @@ export function BookmarkRow({
   const immediateFolder = bookmark.folderPath.at(-1)
   const subtitle = immediateFolder ? `${immediateFolder} • ${domain}` : domain
 
+  function performDelete(triggerElement: HTMLElement) {
+    const confirmed = window.confirm(deleteConfirmMessage(bookmark.title))
+    // confirm() returns focus to the trigger element, which keeps the delete
+    // icon visible via :focus-within — blur so it reverts once the mouse
+    // isn't actually hovering it anymore (e.g. after cancelling).
+    clearStaleHover(triggerElement)
+    if (confirmed) onDelete(bookmark)
+  }
+
   function handleDeleteClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
     event.stopPropagation()
-    const confirmed = window.confirm(deleteConfirmMessage(bookmark.title))
-    // confirm() returns focus to this button, which keeps the delete icon
-    // visible via :focus-within — blur so it reverts once the mouse isn't
-    // actually hovering it anymore (e.g. after cancelling).
-    clearStaleHover(event)
-    if (confirmed) onDelete(bookmark)
+    performDelete(event.currentTarget)
+  }
+
+  function handleRowKeyDown(event: React.KeyboardEvent<HTMLAnchorElement>) {
+    if (
+      isShortcutModifierPressed(event.nativeEvent) &&
+      !event.shiftKey &&
+      !event.altKey &&
+      event.key.toLowerCase() === "d"
+    ) {
+      event.preventDefault()
+      performDelete(event.currentTarget)
+    }
   }
 
   return (
@@ -65,7 +81,8 @@ export function BookmarkRow({
       onClick={(event) => {
         event.preventDefault()
         openUrl(bookmark.url)
-      }}>
+      }}
+      onKeyDown={handleRowKeyDown}>
       <span className="bm-favicon-slot">
         <span
           className={`bm-favicon-chip${iconFailed ? " bm-favicon-chip--fallback" : ""}`}>
