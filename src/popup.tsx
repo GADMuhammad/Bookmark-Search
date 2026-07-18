@@ -85,11 +85,16 @@ export default function popup() {
         const currentIndex = focusable.indexOf(
           document.activeElement as HTMLElement
         )
+        const length = focusable.length
 
         const nextIndex =
-          event.key === "ArrowDown"
-            ? Math.min(currentIndex + 1, focusable.length - 1)
-            : Math.max(currentIndex - 1, 0)
+          currentIndex === -1
+            ? event.key === "ArrowDown"
+              ? 0
+              : length - 1
+            : event.key === "ArrowDown"
+              ? (currentIndex + 1) % length
+              : (currentIndex - 1 + length) % length
 
         focusable[nextIndex]?.focus()
         return
