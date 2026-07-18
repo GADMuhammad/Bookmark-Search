@@ -45,6 +45,7 @@ export function BookmarkRow({
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(bookmark.title)
   const editInputRef = useRef<HTMLInputElement>(null)
+  const rowRef = useRef<HTMLAnchorElement>(null)
   // Guards against the blur fired by React unmounting the input right after
   // Enter/Escape already resolved the edit, so that unmount-blur doesn't
   // re-run the discard path on top of an already-committed/-cancelled edit.
@@ -56,6 +57,20 @@ export function BookmarkRow({
       editInputRef.current?.select()
     }
   }, [isEditing])
+
+  // ⌘E/Ctrl+E is a registered browser command, so it's intercepted globally
+  // and never reaches this row as a keydown — popup.tsx relays it here as a
+  // DOM event on whichever row is currently focused instead. See background.ts.
+  useEffect(() => {
+    const element = rowRef.current
+    if (!element) return
+    function handleStartEditEvent() {
+      startEditing()
+    }
+    element.addEventListener("bm:start-edit", handleStartEditEvent)
+    return () =>
+      element.removeEventListener("bm:start-edit", handleStartEditEvent)
+  }, [])
 
   const domain = getDomain(bookmark.url)
   const rtl = isRtl(bookmark.title)
@@ -80,23 +95,37 @@ export function BookmarkRow({
     performDelete(event.currentTarget)
   }
 
+  function startEditing() {
+    setEditValue(bookmark.title)
+    setIsEditing(true)
+  }
+
   function handleRowKeyDown(event: React.KeyboardEvent<HTMLAnchorElement>) {
     if (
-      isShortcutModifierPressed(event.nativeEvent) &&
-      !event.shiftKey &&
-      !event.altKey &&
-      event.key.toLowerCase() === "d"
+      !isShortcutModifierPressed(event.nativeEvent) ||
+      event.shiftKey ||
+      event.altKey
     ) {
+      return
+    }
+
+    const key = event.key.toLowerCase()
+
+    if (key === "d") {
       event.preventDefault()
       performDelete(event.currentTarget)
+    } else if (key === "e") {
+      // ⌘E/Ctrl+E opens the popup when it's closed (browser-level command);
+      // once it's open and a row is focused, reuse the same shortcut to edit.
+      event.preventDefault()
+      startEditing()
     }
   }
 
   function handleEditClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
     event.stopPropagation()
-    setEditValue(bookmark.title)
-    setIsEditing(true)
+    startEditing()
   }
 
   function commitEdit() {
@@ -137,6 +166,7 @@ export function BookmarkRow({
 
   return (
     <a
+      ref={rowRef}
       className={`bm-row${modifierHeld ? " bm-row--modifier-held" : ""}${isEditing ? " bm-row--editing" : ""}`}
       href={bookmark.url}
       onClick={(event) => {

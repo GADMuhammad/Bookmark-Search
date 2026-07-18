@@ -35,6 +35,25 @@ export default function popup() {
     })
   }, [])
 
+  // ⌘E/Ctrl+E is a global browser command (see background.ts) — it never
+  // reaches this page as a keydown, so while the popup is already open,
+  // background.ts relays it here as a runtime message instead. Forward it to
+  // whichever bookmark row is currently focused as a DOM event.
+  useEffect(() => {
+    if (typeof chrome === "undefined" || !chrome.runtime?.onMessage) return
+
+    function handleMessage(message: { type?: string }) {
+      if (message?.type !== "edit-focused-bookmark") return
+      const active = document.activeElement
+      if (active instanceof HTMLElement && active.classList.contains("bm-row")) {
+        active.dispatchEvent(new CustomEvent("bm:start-edit"))
+      }
+    }
+
+    chrome.runtime.onMessage.addListener(handleMessage)
+    return () => chrome.runtime.onMessage.removeListener(handleMessage)
+  }, [])
+
   async function handleDelete(bookmark: Bookmark) {
     setBookmarks((prev) => prev.filter((b) => b.id !== bookmark.id))
     await deleteBookmark(bookmark.id)

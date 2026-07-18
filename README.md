@@ -13,7 +13,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
 - **⚡ Fast Google Search:** Pressing `Enter` while focused on the search input instantly triggers a Google search for your query, mirroring the behavior of `⌘G` / `Ctrl+G` without needing to navigate downwards.
 - **♿ Full Accessibility (A11y):** Supports standard accessibility practices. Users can naturally navigate through search results and controls using `Tab` and `Shift+Tab`, with clear focus indicators for a seamless keyboard-only experience.
 - **Keyboard-driven** — no mouse required:
-  - `⌘E` / `Ctrl+E` — open the popup from anywhere in the browser.
+  - `⌘E` / `Ctrl+E` — open the popup from anywhere in the browser; once it's open, pressing it again while a result is focused renames that result instead.
   - `⌘1`–`⌘9` / `Ctrl+1`–`Ctrl+9` — jump straight to one of the visible results.
   - `⌘G` / `Ctrl+G` (or `Enter`) — run a Google search for your current query.
   - `↓` / `↑` — move focus to the next/previous result, same as `Tab` / `Shift+Tab`, wrapping around at the first and last item.
@@ -23,6 +23,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
   ready browsing a site, so you never lose your place.
 - **Real favicons** — pulled via Chrome's extension favicon API, with a clean fallback icon if one fails to load.
 - **Delete bookmarks in place** — hover a result to reveal a delete button in place of its favicon, or focus it and press `⌘D` / `Ctrl+D`.
+- **Rename bookmarks in place** — hold `⌘` / `Ctrl` while hovering a result to reveal an edit button in place of its favicon (or just focus it and press `⌘E` / `Ctrl+E`); its title turns into a text field — press `Enter` to save or `Esc` to discard and keep the previous title.
 - **Selection-aware search** — if you have text selected on the page when you open the popup, the search input is pre-filled with it, so you can search your bookmarks (or Google) for whatever you just highlighted without retyping it.
 - **Folder context** — each result shows the domain and, if it lives in a subfolder, that folder's name (e.g. `Work • github.com`). The default "Bookmarks bar" root is never shown, since it adds no information.
 - **RTL support** — Arabic bookmark titles are detected automatically and the row flips to right-aligned, `dir="rtl"` layout.
