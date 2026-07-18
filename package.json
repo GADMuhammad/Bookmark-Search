@@ -28,7 +28,8 @@
     "permissions": [
       "bookmarks",
       "favicon",
-      "tabs"
+      "tabs",
+      "scripting"
     ],
     "host_permissions": [
       "https://*/*"

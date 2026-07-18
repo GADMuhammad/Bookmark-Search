@@ -7,6 +7,7 @@ import { deleteBookmark, loadBookmarks, type Bookmark } from "~lib/bookmarks"
 import { getDomain } from "~lib/favicon"
 import { bestFuzzyScore } from "~lib/fuzzy"
 import { isShortcutModifierPressed, shortcutLabel } from "~lib/platform"
+import { getSelectedText } from "~lib/selection"
 import { openUrl } from "~lib/tabs"
 
 import "~/style.scss"
@@ -20,6 +21,12 @@ export default function popup() {
 
   useEffect(() => {
     loadBookmarks().then(setBookmarks)
+  }, [])
+
+  useEffect(() => {
+    getSelectedText().then((selectedText) => {
+      if (selectedText) setQuery(selectedText)
+    })
   }, [])
 
   async function handleDelete(bookmark: Bookmark) {
