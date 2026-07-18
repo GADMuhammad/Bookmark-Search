@@ -17,11 +17,12 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
   - `⌘1`–`⌘9` / `Ctrl+1`–`Ctrl+9` — jump straight to one of the visible results.
   - `⌘G` / `Ctrl+G` (or `Enter`) — run a Google search for your current query.
   - `↓` / `↑` — move focus to the next/previous result, same as `Tab` / `Shift+Tab`, wrapping around at the first and last item.
+  - `⌘D` / `Ctrl+D` — delete the focused result (with a confirmation prompt), same as clicking its delete button.
   - `Backspace` — instantly returns focus to the search input, no matter where focus currently is in the popup.
 - **Smart tab reuse** — opening a bookmark reuses the current tab if it's an empty new tab, or opens a new tab alongside your existing one if you're al
   ready browsing a site, so you never lose your place.
 - **Real favicons** — pulled via Chrome's extension favicon API, with a clean fallback icon if one fails to load.
-- **Delete bookmarks in place** — hover a result to reveal a delete button in place of its favicon.
+- **Delete bookmarks in place** — hover a result to reveal a delete button in place of its favicon, or focus it and press `⌘D` / `Ctrl+D`.
 - **Selection-aware search** — if you have text selected on the page when you open the popup, the search input is pre-filled with it, so you can search your bookmarks (or Google) for whatever you just highlighted without retyping it.
 - **Folder context** — each result shows the domain and, if it lives in a subfolder, that folder's name (e.g. `Work • github.com`). The default "Bookmarks bar" root is never shown, since it adds no information.
 - **RTL support** — Arabic bookmark titles are detected automatically and the row flips to right-aligned, `dir="rtl"` layout.
