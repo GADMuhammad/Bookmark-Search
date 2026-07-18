@@ -22,6 +22,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
   ready browsing a site, so you never lose your place.
 - **Real favicons** — pulled via Chrome's extension favicon API, with a clean fallback icon if one fails to load.
 - **Delete bookmarks in place** — hover a result to reveal a delete button in place of its favicon.
+- **Selection-aware search** — if you have text selected on the page when you open the popup, the search input is pre-filled with it, so you can search your bookmarks (or Google) for whatever you just highlighted without retyping it.
 - **Folder context** — each result shows the domain and, if it lives in a subfolder, that folder's name (e.g. `Work • github.com`). The default "Bookmarks bar" root is never shown, since it adds no information.
 - **RTL support** — Arabic bookmark titles are detected automatically and the row flips to right-aligned, `dir="rtl"` layout.
 - **Automatic theming** — light/dark mode follows `prefers-color-scheme`; there's no manual toggle.
@@ -57,7 +58,7 @@ src/
   popup.tsx              Extension popup entry point
   background.ts          Service worker (handles the ⌘E / Ctrl+E launcher shortcut)
   components/             UI components (SearchBar, BookmarkRow, GoogleFallbackRow, icons)
-  lib/                     bookmarks.ts, favicon.ts, tabs.ts, platform.ts, rtl.ts
+  lib/                     bookmarks.ts, favicon.ts, tabs.ts, platform.ts, rtl.ts, selection.ts
   styles/                  Sass partials (design tokens, layout)
   style.scss              Sass entry point
 ```
@@ -68,6 +69,7 @@ src/
 | ------------------------------- | --------------------------------------------------------- |
 | `bookmarks`                     | Read the bookmark tree to power search.                   |
 | `favicon`                       | Resolve favicons through Chrome's built-in favicon API.   |
+| `scripting`                     | Read the active tab's text selection to pre-fill search.  |
 | `host_permissions: https://*/*` | Needed for the favicon API to resolve icons for any site. |
 
 ## Notes
