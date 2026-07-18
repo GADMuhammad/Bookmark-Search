@@ -44,3 +44,12 @@ export async function deleteBookmark(id: string): Promise<void> {
     await chrome.bookmarks.remove(id)
   }
 }
+
+export async function updateBookmarkTitle(
+  id: string,
+  title: string
+): Promise<void> {
+  if (typeof chrome !== "undefined" && chrome.bookmarks?.update) {
+    await chrome.bookmarks.update(id, { title })
+  }
+}

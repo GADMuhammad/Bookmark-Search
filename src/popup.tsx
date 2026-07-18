@@ -3,7 +3,12 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { BookmarkRow } from "~components/BookmarkRow"
 import { GoogleFallbackRow } from "~components/GoogleFallbackRow"
 import { SearchBar } from "~components/SearchBar"
-import { deleteBookmark, loadBookmarks, type Bookmark } from "~lib/bookmarks"
+import {
+  deleteBookmark,
+  loadBookmarks,
+  updateBookmarkTitle,
+  type Bookmark
+} from "~lib/bookmarks"
 import { getDomain } from "~lib/favicon"
 import { bestFuzzyScore } from "~lib/fuzzy"
 import { isShortcutModifierPressed, shortcutLabel } from "~lib/platform"
@@ -17,6 +22,7 @@ const SHORTCUT_COUNT = 9
 export default function popup() {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
   const [query, setQuery] = useState("")
+  const [modifierHeld, setModifierHeld] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -33,6 +39,34 @@ export default function popup() {
     setBookmarks((prev) => prev.filter((b) => b.id !== bookmark.id))
     await deleteBookmark(bookmark.id)
   }
+
+  async function handleRename(bookmark: Bookmark, title: string) {
+    setBookmarks((prev) =>
+      prev.map((b) => (b.id === bookmark.id ? { ...b, title } : b))
+    )
+    await updateBookmarkTitle(bookmark.id, title)
+  }
+
+  // Tracks whether the shortcut modifier (⌘ on Mac, Ctrl elsewhere) is
+  // currently held, so a hovered row can swap its delete button for an edit
+  // button. Reset on blur so it can't get stuck "held" if the popup loses
+  // focus (e.g. alt-tab) while the key is down and no keyup ever arrives.
+  useEffect(() => {
+    function handleModifierKey(event: KeyboardEvent) {
+      setModifierHeld(isShortcutModifierPressed(event))
+    }
+    function resetModifier() {
+      setModifierHeld(false)
+    }
+    window.addEventListener("keydown", handleModifierKey)
+    window.addEventListener("keyup", handleModifierKey)
+    window.addEventListener("blur", resetModifier)
+    return () => {
+      window.removeEventListener("keydown", handleModifierKey)
+      window.removeEventListener("keyup", handleModifierKey)
+      window.removeEventListener("blur", resetModifier)
+    }
+  }, [])
 
   const trimmedQuery: string = query.trim().toLowerCase()
   const hasQuery: boolean = trimmedQuery.length > 0
@@ -72,6 +106,17 @@ export default function popup() {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      // While renaming a bookmark, the row's own input owns all keyboard
+      // input (typing, Backspace, arrow-key cursor movement, Enter/Escape) —
+      // don't let the global shortcuts below hijack any of it.
+      if (
+        (document.activeElement as HTMLElement | null)?.classList.contains(
+          "bm-edit-input"
+        )
+      ) {
+        return
+      }
+
       if (
         event.key === "Backspace" &&
         document.activeElement !== inputRef.current
@@ -167,7 +212,9 @@ export default function popup() {
                     ? shortcutLabel(String(index + 1))
                     : undefined
                 }
+                modifierHeld={modifierHeld}
                 onDelete={handleDelete}
+                onRename={handleRename}
               />
             ))
           ) : (

@@ -229,6 +229,21 @@
   text-overflow: ellipsis;
 }
 
+.bm-edit-input {
+  width: 100%;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: inherit;
+  background: var(--bm-search-bg);
+  border: 1px solid var(--bm-edit);
+  border-radius: 6px;
+  padding: 1px 5px;
+  margin: -2px 0;
+  outline: none;
+}
+
 .bm-domain {
   margin-top: 1px;
   font-size: 11px;
@@ -283,15 +298,64 @@
   }
 }
 
+.bm-edit-btn {
+  position: absolute;
+  inset: 0;
+  border: none;
+  border-radius: 9px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bm-edit-bg);
+  color: var(--bm-edit);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.12s ease,
+    background 0.12s ease,
+    color 0.12s ease;
+
+  &:hover {
+    background: var(--bm-edit);
+    color: #fff;
+  }
+}
+
 .bm-row:hover .bm-favicon-chip,
 .bm-favicon-slot:focus-within .bm-favicon-chip {
   opacity: 0;
 }
 
+// Plain hover reveals the delete button; holding the shortcut modifier
+// (⌘/Ctrl) while hovering swaps it for the edit button instead.
 .bm-row:hover .bm-delete-btn,
 .bm-favicon-slot:focus-within .bm-delete-btn {
   opacity: 1;
   pointer-events: auto;
+}
+
+.bm-row--modifier-held:hover .bm-delete-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bm-row--modifier-held:hover .bm-edit-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+// While actively renaming, keep the favicon slot showing the plain favicon
+// instead of a hover overlay button.
+.bm-row--editing:hover .bm-delete-btn,
+.bm-row--editing:hover .bm-edit-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bm-row--editing:hover .bm-favicon-chip {
+  opacity: 1;
 }
 
 .bm-empty-state {

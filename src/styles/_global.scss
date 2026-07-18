@@ -88,6 +88,9 @@ body {
 
   --bm-danger: #dc2626;
   --bm-danger-bg: rgba(220, 38, 38, 0.12);
+
+  --bm-edit: #2563eb;
+  --bm-edit-bg: rgba(37, 99, 235, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -128,5 +131,8 @@ body {
 
     --bm-danger: #f87171;
     --bm-danger-bg: rgba(248, 113, 113, 0.16);
+
+    --bm-edit: #60a5fa;
+    --bm-edit-bg: rgba(96, 165, 250, 0.16);
   }
 }
