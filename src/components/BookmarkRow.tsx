@@ -58,18 +58,18 @@ export function BookmarkRow({
     }
   }, [isEditing])
 
+  function startEditing() {
+    setIsEditing(true)
+  }
+
   // ⌘E/Ctrl+E is a registered browser command, so it's intercepted globally
   // and never reaches this row as a keydown — popup.tsx relays it here as a
   // DOM event on whichever row is currently focused instead. See background.ts.
   useEffect(() => {
     const element = rowRef.current
     if (!element) return
-    function handleStartEditEvent() {
-      startEditing()
-    }
-    element.addEventListener("bm:start-edit", handleStartEditEvent)
-    return () =>
-      element.removeEventListener("bm:start-edit", handleStartEditEvent)
+    element.addEventListener("bm:start-edit", startEditing)
+    return () => element.removeEventListener("bm:start-edit", startEditing)
   }, [])
 
   const domain = getDomain(bookmark.url)
@@ -82,9 +82,6 @@ export function BookmarkRow({
 
   function performDelete(triggerElement: HTMLElement) {
     const confirmed = window.confirm(deleteConfirmMessage(bookmark.title))
-    // confirm() returns focus to the trigger element, which keeps the delete
-    // icon visible via :focus-within — blur so it reverts once the mouse
-    // isn't actually hovering it anymore (e.g. after cancelling).
     clearStaleHover(triggerElement)
     if (confirmed) onDelete(bookmark)
   }
@@ -93,11 +90,6 @@ export function BookmarkRow({
     event.preventDefault()
     event.stopPropagation()
     performDelete(event.currentTarget)
-  }
-
-  function startEditing() {
-    setEditValue(bookmark.title)
-    setIsEditing(true)
   }
 
   function handleRowKeyDown(event: React.KeyboardEvent<HTMLAnchorElement>) {
@@ -141,7 +133,9 @@ export function BookmarkRow({
     setEditValue(bookmark.title)
   }
 
-  function handleEditInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+  function handleEditInputKeyDown(
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) {
     // Editing owns all keyboard input while active, so it never leaks up to
     // the row's own shortcut (⌘D) or the popup's global shortcut handler.
     event.stopPropagation()
