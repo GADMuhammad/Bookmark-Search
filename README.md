@@ -8,7 +8,7 @@ A fast, keyboard-first Chrome extension popup for searching your bookmarks. Buil
 
 ## Features
 
-- **Fuzzy search (Smart search)** — matches don't need to be exact or contiguous; results are ranked by relevance across title, domain, and immediate parent folder, so a quick, imprecise query like `gthb` still finds `github.com`.
+- **Fuzzy search (smart search)** — matches don't need to be exact or contiguous; results are ranked by relevance across title, domain, and immediate parent folder, so a quick, imprecise query like `gthb` still finds `github.com`.
 - **Live bookmark count** — the search placeholder shows your total bookmark count (e.g. `Search 128 Bookmarks or Google...`), so you always know how much is being searched.
 - **⚡ Fast Google Search:** Pressing `Enter` while focused on the search input instantly triggers a Google search for your query, mirroring the behavior of `⌘G` / `Ctrl+G` without needing to navigate downwards.
 - **♿ Full Accessibility (A11y):** Supports standard accessibility practices. Users can naturally navigate through search results and controls using `Tab` and `Shift+Tab`, with clear focus indicators for a seamless keyboard-only experience.
